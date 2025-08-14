@@ -61,6 +61,10 @@
         "test": [
             "@php artisan config:clear --ansi",
             "@php artisan test"
+        ],
+        "caches": [
+            "@php artisan cache:clear",
+            "php artisan filament:optimize-clear"
         ]
     },
     "extra": {
