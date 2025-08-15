@@ -43,7 +43,15 @@ class CurriculumVitaeController extends Controller
         $options->setDefaultFont('sans-serif');
         $domPdf->setOptions($options);
 
-        $domPdf->loadHtml("<html lang=\"uk\"><body>{$view}</body></html>");
+        $appLang = str_replace('_', '-', app()->getLocale());
+
+        $domPdf->loadHtml(<<<HTML
+<html lang="{$appLang}">
+    <body>
+        {$view}
+    </body>
+</html>
+HTML);
         $domPdf->setPaper('A4');
         $domPdf->render();
         $domPdf->stream("{$this->getFileName()}.pdf");
