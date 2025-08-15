@@ -10,13 +10,16 @@ use Filament\Tables\Table;
 
 class CurriculumVitaesTable
 {
+    /**
+     * @throws \Exception
+     */
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('id')->label('ID'),
-                TextColumn::make('created_at')->label('Created At'),
-                TextColumn::make('updated_at')->label('Updated At'),
+                TextColumn::make('id')->label('ID')->sortable(),
+                TextColumn::make('created_at')->label('Created At')->sortable(),
+                TextColumn::make('updated_at')->label('Updated At')->sortable(),
             ])
             ->filters([
                 //
