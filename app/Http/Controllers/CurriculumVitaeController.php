@@ -6,6 +6,8 @@ use App\Models\CurriculumVitae;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Markdown;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class CurriculumVitaeController extends Controller
@@ -42,21 +44,14 @@ class CurriculumVitaeController extends Controller
 
     public function downloadPdf(): mixed
     {
-        $view = view('components.curriculum-vitae', ['cv' => $this->curriculumVitae->body])->render();
+        $innerView = view('components.curriculum-vitae', ['cv' => $this->curriculumVitae->body])->render();
+        $view = Blade::render('<x-pdf-layout>' . $innerView . '</x-pdf-layout>');
         $domPdf = new DomPDF;
         $options = $domPdf->getOptions();
         $options->setDefaultFont('sans-serif');
         $domPdf->setOptions($options);
 
-        $appLang = str_replace('_', '-', app()->getLocale());
-
-        $domPdf->loadHtml(<<<HTML
-<html lang="{$appLang}">
-    <body>
-        {$view}
-    </body>
-</html>
-HTML);
+        $domPdf->loadHtml($view);
         $domPdf->setPaper('A4');
         $domPdf->render();
         $domPdf->stream("{$this->getFileName()}.pdf");
