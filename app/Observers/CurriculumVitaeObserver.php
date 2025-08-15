@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Models\CurriculumVitae;
-use Illuminate\Support\Facades\Log;
 
 class CurriculumVitaeObserver
 {
