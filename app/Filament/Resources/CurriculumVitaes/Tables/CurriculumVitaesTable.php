@@ -16,6 +16,7 @@ class CurriculumVitaesTable
             ->columns([
                 TextColumn::make('id')->label('ID'),
                 TextColumn::make('created_at')->label('Created At'),
+                TextColumn::make('updated_at')->label('Updated At'),
             ])
             ->filters([
                 //

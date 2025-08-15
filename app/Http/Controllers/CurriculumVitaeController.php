@@ -16,7 +16,7 @@ class CurriculumVitaeController extends Controller
 
     public function __construct()
     {
-        $this->curriculumVitae = CurriculumVitae::query()->latest()->firstOrFail();
+        $this->curriculumVitae = CurriculumVitae::query()->orderByDesc('curriculum_vitaes.updated_at')->firstOrFail();
     }
 
     /**
