@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CurriculumVitae extends Model
 {
-    use SoftDeletes;
     use HasTimestamps;
+    use SoftDeletes;
 
     protected $fillable = [
-        'body'
+        'body',
     ];
 }

@@ -6,31 +6,36 @@ use App\Models\CurriculumVitae;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Markdown;
-use Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class CurriculumVitaeController extends Controller
 {
     private readonly CurriculumVitae $curriculumVitae;
-    public function __construct() {
+
+    public function __construct()
+    {
         $this->curriculumVitae = CurriculumVitae::query()->latest()->firstOrFail();
     }
+
     /**
      * Handle the incoming request.
      */
     public function show(Request $request)
     {
         return view('curriculumvitae.show', [
-            'cv' => Markdown::parse($this->curriculumVitae->body)
+            'cv' => Markdown::parse($this->curriculumVitae->body),
         ]);
     }
 
     public function downloadMarkdown(): StreamedResponse
     {
         $cv = CurriculumVitae::query()->latest()->firstOrFail();
+
         return response()
             ->streamDownload(
-                function () { echo $this->curriculumVitae->body; },
+                function () {
+                    echo $this->curriculumVitae->body;
+                },
                 "{$this->getFileName()}.md"
             );
     }
@@ -38,7 +43,7 @@ class CurriculumVitaeController extends Controller
     public function downloadPdf(): mixed
     {
         $view = view('components.curriculum-vitae', ['cv' => $this->curriculumVitae->body])->render();
-        $domPdf = new DomPDF();
+        $domPdf = new DomPDF;
         $options = $domPdf->getOptions();
         $options->setDefaultFont('sans-serif');
         $domPdf->setOptions($options);
