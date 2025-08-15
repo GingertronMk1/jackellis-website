@@ -11,7 +11,7 @@ class CurriculumVitaeForm
     {
         return $schema
             ->components([
-                MarkdownEditor::make('body')->columnSpanFull()
+                MarkdownEditor::make('body')->columnSpanFull(),
             ]);
     }
 }
