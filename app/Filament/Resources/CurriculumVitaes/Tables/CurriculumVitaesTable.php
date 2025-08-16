@@ -25,7 +25,7 @@ class CurriculumVitaesTable
                 //
             ])
             ->recordActions([
-                EditAction::make()->successRedirectUrl(route('filament.admin.resources.curriculum-vitaes.index')),
+                EditAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

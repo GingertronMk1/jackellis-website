@@ -11,9 +11,10 @@ class CurriculumVitaeObserver
      */
     public function updating(CurriculumVitae $curriculumVitae): bool
     {
-        CurriculumVitae::query()->create([
-            'body' => $curriculumVitae->body,
-        ]);
+        $newCV = new CurriculumVitae;
+        $newCV->body = $curriculumVitae->body;
+        $newCV->parent_id = $curriculumVitae->id;
+        $newCV->save();
 
         return false;
     }
