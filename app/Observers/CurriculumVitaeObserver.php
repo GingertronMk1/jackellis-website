@@ -12,8 +12,9 @@ class CurriculumVitaeObserver
     public function updating(CurriculumVitae $curriculumVitae): bool
     {
         CurriculumVitae::query()->create([
-            'body' => $curriculumVitae->body
+            'body' => $curriculumVitae->body,
         ]);
+
         return false;
     }
 }
